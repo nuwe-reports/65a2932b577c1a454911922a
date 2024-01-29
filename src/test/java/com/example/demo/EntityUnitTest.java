@@ -27,24 +27,57 @@ class EntityUnitTest {
 	@Autowired
 	private TestEntityManager entityManager;
 
-	private Doctor d1;
-
-	private Patient p1;
-
-    private Room r1;
-
-    private Appointment a1;
-    private Appointment a2;
-    private Appointment a3;
-
     @Test
-    void this_is_a_test(){
-        // DELETE THIS TEST
-        assertThat(false).isEqualTo(true);
+    public void testDoctor() {
+        Doctor doctor = new Doctor("Juan","Carlos", 34, "j.carlos@hospital.accwe");
+        entityManager.persistAndFlush(doctor);
+        Doctor retrievedDoctor = entityManager.find(Doctor.class, doctor.getId());
+        assertThat(retrievedDoctor.getFirstName()).isEqualTo(doctor.getFirstName());
+        assertThat(retrievedDoctor.getLastName()).isEqualTo(doctor.getLastName());
+        assertThat(retrievedDoctor.getEmail()).isEqualTo(doctor.getEmail());
+        assertThat(retrievedDoctor.getAge()).isEqualTo(doctor.getAge());
+        assertThat(retrievedDoctor.getId()).isEqualTo(doctor.getId());
     }
 
-    /** TODO
-     * Implement tests for each Entity class: Doctor, Patient, Room and Appointment.
-     * Make sure you are as exhaustive as possible. Coverage is checked ;)
-     */
+    @Test
+    public void testPatient() {
+        Patient patient = new Patient("Cornelio","Andrea", 59, "c.andrea@hospital.accwe");
+        entityManager.persistAndFlush(patient);
+        Patient retrievedPatient = entityManager.find(Patient.class, patient.getId());
+        assertThat(retrievedPatient.getFirstName()).isEqualTo(patient.getFirstName());
+        assertThat(retrievedPatient.getLastName()).isEqualTo(patient.getLastName());
+        assertThat(retrievedPatient.getEmail()).isEqualTo(patient.getEmail());
+        assertThat(retrievedPatient.getAge()).isEqualTo(patient.getAge());
+        assertThat(retrievedPatient.getId()).isEqualTo(patient.getId());
+    }
+
+    @Test
+    public void testRoom() {
+        Room room = new Room("Dermatology");
+        entityManager.persistAndFlush(room);
+        Room retrievedRoom = entityManager.find(Room.class, room.getRoomName());
+        assertThat(retrievedRoom.getRoomName()).isEqualTo(room.getRoomName());
+    }
+
+    @Test
+    public void testAppointment() {
+        Patient patient = new Patient("Cornelio","Andrea", 59, "c.andrea@hospital.accwe");
+        Doctor doctor = new Doctor("Juan","Carlos", 34, "j.carlos@hospital.accwe");
+        Room room = new Room("Dermatology");
+        LocalDateTime startsAt = LocalDateTime.now();
+        LocalDateTime finishesAt = LocalDateTime.now();
+        Appointment appointment = new Appointment(patient, doctor, room, startsAt, finishesAt);
+        entityManager.persistAndFlush(appointment);
+        Appointment retrievedAppointment = entityManager.find(Appointment.class, appointment.getId());
+        assertThat(retrievedAppointment.getId()).isEqualTo(appointment.getId());
+        assertThat(retrievedAppointment.getDoctor().getId()).isEqualTo(doctor.getId());
+        assertThat(retrievedAppointment.getPatient().getId()).isEqualTo(patient.getId());
+        assertThat(retrievedAppointment.getStartsAt()).isEqualTo(appointment.getStartsAt());
+        assertThat(retrievedAppointment.getFinishesAt()).isEqualTo(appointment.getFinishesAt());
+        assertThat(retrievedAppointment.getRoom().getRoomName()).isEqualTo(room.getRoomName());
+
+    }
 }
+
+
+
