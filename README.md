@@ -34,8 +34,6 @@ Creating Dockerfiles.
 - Built local images based on Dockerfile.mysql and Dockerfile.maven.
 - Run the Docker Containers.
 - Pushed them to Docker hub.
-- Pulled the images from dockerhub.
-
 
 Task 4
 Develop a UML diagram
