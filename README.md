@@ -31,9 +31,11 @@ Implemented all the unite test in its corresponding class in EntityControllerUni
 
 Task 3
 Creating Dockerfiles.
-- Built the Docker images based on Dockerfile.mysql and Dockerfile.maven.
+- Built local images based on Dockerfile.mysql and Dockerfile.maven.
 - Run the Docker Containers.
-- Pushed them to Docker hub for the future purpose of using kubernetes.
+- Pushed them to Docker hub.
+- Pulled the images from dockerhub.
+
 
 Task 4
 Develop a UML diagram
